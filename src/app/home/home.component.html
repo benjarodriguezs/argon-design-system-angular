@@ -26,12 +26,13 @@
                 <button 
                   class="btn btn-lg btn-github btn-icon mb-3 mb-sm-0" 
                   target="_blank"
-                  (click)="openModalEdit(classic,'' , '')">
+                  (click)="openModal(template)"
+                  >
                   <span class="btn-inner--icon"><i class="fa fa-pencil"></i></span>
                   <span class="btn-inner--text">Modificar</span>
                 </button>
               </div>
-              <div class="btn-wrapper pt-2">
+              <!-- <div class="btn-wrapper pt-2">
                 <button 
                 class="btn btn-lg btn-github btn-icon mb-3 mb-sm-0 px-4" 
                 target="_blank"
@@ -39,7 +40,7 @@
                 <span class="btn-inner--icon"><i class="fa fa-trash"></i></span>
                 <span class="btn-inner--text">Eliminar</span>
               </button>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -55,7 +56,7 @@
   <!-- <app-sections></app-sections> -->
 </main>
 
-<ng-template #classic let-c="close" let-d="dismiss">
+<!-- <ng-template #classic let-c="close" let-d="dismiss">
   <div class="modal-content">
     <div class="modal-header">
       <h6 class="modal-title" id="modal-title-default">MODIFICAR PEDIDO</h6>
@@ -65,11 +66,17 @@
     </div>
     <div class="modal-body">
       <label for="clientlist" class="form-label">Cliente</label>
-        <input class="form-control" list="clientlistOptions" id="clientlist" placeholder="Type to search...">
-        <datalist id="clientlistOptions">
-          <option value="111111">
-          <option value="222222">
-        </datalist>
+        <input
+          class="form-control"
+          list="clientlistOptions"
+          id="clientlist"
+          placeholder="Type to search..."
+          [(ngModel)]="client.id">
+          <div *ngFor="let cliente of client">
+            <datalist id="clientlistOptions">
+              <option value="cliente.id">
+            </datalist>
+          </div>
         <label for="skulist" class="form-label mt-2">SKU a modificar</label>
         <input class="form-control" list="skulistOptions" id="skulist" placeholder="Type to search...">
         <datalist id="skulistOptions">
@@ -85,8 +92,51 @@
           aria-label="default input example">
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary">Save changes</button>
       <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal" (click)="c('Close click')">Close</button>
+      <button type="button" class="btn btn-primary" (click)="realizarPedido(clientlist, skulist, quantity)">Finalizar</button>
+    </div>
+  </div>
+</ng-template> -->
+
+<ng-template #template>
+  <div class="modal-header">
+    <h5 class="modal-title">Add Reminder</h5>
+  </div>
+  <div class="modal-body col-12">
+    <label for="clientlist" class="form-label">Cliente</label>
+    <input
+      class="form-control"
+      list="clientlistOptions"
+      type="number"
+      id="clientlist"
+      placeholder="Type to search..."
+      [(ngModel)]="clientId">
+      <datalist id="clientlistOptions">
+        <option value="111111">
+        <option value="222222">
+      </datalist>
+    <label for="skulist" class="form-label mt-2">SKU a modificar</label>
+    <input
+      class="form-control"
+      list="skulistOptions"
+      id="skulist"
+      [(ngModel)]="sku"
+      placeholder="Type to search...">
+    <datalist id="skulistOptions">
+      <option value="Quilmes">
+      <option value="Stella">
+    </datalist>
+    <label for="quantity" class="form-label mt-2">Cantidad Deseada</label>
+    <input
+      class="form-control"
+      id="quantity"
+      type="number"
+      placeholder="Cantidad Deseada"
+      [(ngModel)]="cantidad"
+      aria-label="default input example">
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary " (click)="closeModal()">Cancelar</button>
+      <button type="button" class="btn btn-primary" (click)="modificarPedido()">Finalizar</button>
     </div>
   </div>
 </ng-template>
